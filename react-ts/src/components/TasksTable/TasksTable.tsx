@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ITask } from '../models/types';
-
+import TaskColumn from '../TaskColumn/TaskColumn';
+import './TasksTable.css';
 interface Props {
   tasks: ITask[];
   setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
@@ -27,16 +28,35 @@ const TasksTable: React.FC<Props> = ({ tasks, setTasks }) => {
   }, [tasks]);
 
   return (
-    <div>
-      TasksTable
-      {todoTasks.map((task) => {
-        return (
-          <div key={task.id}>
-            <span> {task.date?.getDate + ' ' + task.status}</span> -{' '}
-            {task.content}
-          </div>
-        );
-      })}
+    <div className="table__container">
+      <div className="table__item">
+        <TaskColumn
+          tasks={todoTasks}
+          setTasks={setTodoTasks}
+          columnName="TODO"
+        />
+      </div>
+      <div className="table__item">
+        <TaskColumn
+          tasks={inprocessTasks}
+          setTasks={setInprocessTasks}
+          columnName="In Process"
+        />
+      </div>
+      <div className="table__item">
+        <TaskColumn
+          tasks={doneTasks}
+          setTasks={setDoneTasks}
+          columnName="Done"
+        />
+      </div>
+      <div className="table__item">
+        <TaskColumn
+          tasks={problemTasks}
+          setTasks={setProblemTasks}
+          columnName="Problem"
+        />
+      </div>
     </div>
   );
 };

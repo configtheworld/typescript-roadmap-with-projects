@@ -2,11 +2,13 @@ import React from 'react';
 import './Header.css';
 const Header = () => {
   return (
-    <div>
-      <span className="header">
-        TaskToolApp{' '}
-        <a href="https://github.com/configtheworld/typescript-roadmap-with-projects/tree/main/react-ts">
-          0
+    <div className="header">
+      <span>
+        <a
+          className="header__link"
+          href="https://github.com/configtheworld/typescript-roadmap-with-projects/tree/main/react-ts"
+        >
+          scrum-board-project
         </a>
       </span>
     </div>

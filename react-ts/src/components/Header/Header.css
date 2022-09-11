@@ -1,6 +1,11 @@
 .header {
   color: #e2e2e2;
-  font-size: 28px;
+  font-size: 24px;
   z-index: 3;
   margin: 10px;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #e2e2e2;
 }

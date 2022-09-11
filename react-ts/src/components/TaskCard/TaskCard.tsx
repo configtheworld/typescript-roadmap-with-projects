@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import { ITask } from '../models/types';
 import './TaskCard.css';
 interface Props {
   task: ITask;
   tasks: ITask[];
   setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
+  index: number;
 }
 
-const TaskCard: React.FC<Props> = ({ task, tasks, setTasks }) => {
+const TaskCard: React.FC<Props> = ({ task, tasks, setTasks, index }) => {
   const [editable, setEditable] = useState<boolean>(false);
   const [updateText, setUpdateText] = useState<string>(task?.content);
 
@@ -22,37 +24,49 @@ const TaskCard: React.FC<Props> = ({ task, tasks, setTasks }) => {
     );
   }
 
-  return (
-    <div className="card">
-      <div className="card__content">
-        {editable ? (
-          <div className="card__content__edit">
-            <input
-              value={updateText}
-              onChange={(e) => setUpdateText(e.target.value)}
-              className="card__content__input"
-            />{' '}
-            <div>
-              <p className="card__content__text" onClick={handleSave}>
-                Save
-              </p>
-              <p className="card__content__text" onClick={handleDiscard}>
-                Discard
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div onClick={() => setEditable(true)}>{task.content}</div>
-        )}
-      </div>
+  const DateSpan: React.FC<{ dateString: string }> = ({ dateString }) => {
+    const date = new Date(dateString);
+    return (
       <span className="card__small">
-        {task.date?.getDate() +
-          '/' +
-          task.date?.getMonth() +
-          '/' +
-          task.date?.getFullYear()}
+        {date?.getDate() + '/' + date?.getMonth() + '/' + date?.getFullYear()}{' '}
       </span>
-    </div>
+    );
+  };
+
+  return (
+    <Draggable draggableId={task.id ? task.id : index.toString()} index={index}>
+      {(provided) => (
+        <div
+          className="card"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <div className="card__content">
+            {editable ? (
+              <div className="card__content__edit">
+                <input
+                  value={updateText}
+                  onChange={(e) => setUpdateText(e.target.value)}
+                  className="card__content__input"
+                />{' '}
+                <div>
+                  <p className="card__content__text" onClick={handleSave}>
+                    Save
+                  </p>
+                  <p className="card__content__text" onClick={handleDiscard}>
+                    Discard
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div onClick={() => setEditable(true)}>{task.content}</div>
+            )}
+          </div>
+          <DateSpan dateString={task.date ? task.date : ''} />
+        </div>
+      )}
+    </Draggable>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import { ITask } from './components/models/types';
@@ -8,7 +8,16 @@ import TasksTable from './components/TasksTable/TasksTable';
 
 const App: React.FC = () => {
   const [taskContent, setTaskContent] = useState<string>('');
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<ITask[]>(
+    JSON.parse(localStorage.getItem('tasks') || '[]')
+  );
+
+  useEffect(() => {
+    if (localStorage.getItem('tasks')) {
+      const localTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      setTasks(localTasks);
+    }
+  }, []);
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -17,7 +26,7 @@ const App: React.FC = () => {
         id: uuidv4(),
         content: taskContent,
         status: 'todo',
-        date: new Date(),
+        date: new Date().toString(),
       };
       setTasks([...tasks, taskDraft]);
       setTaskContent('');

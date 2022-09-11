@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/configtheworld/typescript-roadmap-with-projects#readme",
   "dependencies": {
+    "@types/react-beautiful-dnd": "^13.1.2",
     "faker": "^6.6.6",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "uuid": "^9.0.0"
   },

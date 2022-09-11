@@ -6,3 +6,8 @@
   margin: 50px;
 }
 /* #F4F5F7 */
+.taskcolumn__title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #172b4d;
+}

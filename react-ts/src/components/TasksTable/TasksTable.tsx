@@ -26,7 +26,6 @@ const TasksTable: React.FC<Props> = ({ tasks, setTasks }) => {
       setProblemTasks(problems);
     }
     decideTaskTable(tasks);
-    console.log('a');
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
@@ -94,15 +93,6 @@ const TasksTable: React.FC<Props> = ({ tasks, setTasks }) => {
       // problem tasks
       setProblemTasks(updatedTasks);
     }
-    // // update local storage
-    // const combinedTasks = [
-    //   ...todoTasks,
-    //   ...inprocessTasks,
-    //   ...doneTasks,
-    //   ...problemTasks,
-    // ];
-    // setTasks(combinedTasks);
-    // localStorage.setItem('tasks', JSON.stringify(combinedTasks));
   }
 
   function decideTaskStatus(columnId: string): StatusTypes {
